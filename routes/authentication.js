@@ -14,12 +14,20 @@ router.get('/google', passport.authenticate('google',  { scope: ['profile'] }))
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
+
+//callback = /auth/google/callback
 router.get(
     '/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { failureRedirect: '/' }),
     (request, response) => {
         response.redirect('/dashboard');
     }
 );
+
+//Logout = /auth/logout
+router.get('/logout', (request, response) => {
+    request.logout()
+    response.redirect('/')
+})
 
 module.exports = router

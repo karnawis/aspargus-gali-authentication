@@ -8,10 +8,32 @@ module.exports = (passport) => {
             {
                 clientID: process.env.GOOGLE_CLIENT_ID,
                 clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-                callbackURL: '/auth/google/callback',
+                callbackURL: process.env.GOOGLE_CALLBACK_URL,
             }, 
             async(accessToken, refreshToken, profile, done) => {
-                console.log(profile)
+                //it hangs here with unauthorized or server error if we don't use call back 'done' or 'cb'
+                const newUser = {
+                    googleId: profile.id,
+                    displayName: profile.displayName,
+                    firstName: profile.name.givenName,
+                    lastName: profile.name.familyName,
+                    image: profile.photos[0].value,
+                  }
+
+                  try {
+                    let user = await User.findOne({googleId: profile.id})
+                    //console.log('user >>>>>>>>>', user)
+                    
+                    if (user ) {
+                        done(null, user)
+                    } else {
+                        user = await User.create(newUser)
+                        done(null, user)
+                    }
+
+                  } catch(error){
+                    console.error(error)
+                  }
             }
         )
     )
