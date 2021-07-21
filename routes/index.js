@@ -1,8 +1,8 @@
-const { response, request } = require('express')
 const express = require('express')
 const router = express.Router()
 const  { ensureAuthenticated: performedAuthentication, ensureNotAuthenticated: notPerformedAuthentication, ensureAuth } = require('../middelwares/authentications')
-//const  { ensureAuth } = require('../middelwares/authentications')
+
+const Post = require('../models/Post')
 
 const renderIndex = (request, response, next) => {
     response.render('index', {layout: 'main'})
@@ -10,8 +10,10 @@ const renderIndex = (request, response, next) => {
 
 const renderDashboard = async (request, response) => {
     try {
+        const posts = await Post.find({user: request.user.id}).lean()
         response.render('dashboard', {
-        name: request.user.firstName,
+            name: request.user.firstName,
+            posts
         })
     } catch (err) {
         console.error(err)

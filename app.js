@@ -12,6 +12,7 @@ const connectDB = require('./config/database')
 
 const routes = require('./routes/index')
 const authenticateRoutes = require('./routes/authentication')
+const postsRoutes = require('./routes/posts')
 
 // Load config
 dotenv.config({ path: './config/config.env' })
@@ -45,12 +46,29 @@ if (process.env.NODE_ENV==='development') {
     app.use(morgan('dev'))
 }
 
+//helpers
+// Handlebars Helpers
+const {
+  formatDate,
+  stripTags,
+  truncate,
+  edit,
+  select,
+} = require('./parsers/handlebars-helpers')
+const { request } = require('express')
 //templating
 app.engine(
   '.hbs', 
   expresshbs({
     extname: '.hbs', 
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    helpers: {
+      formatDate,
+      stripTags,
+      truncate,
+      edit,
+      select,
+    }
   })
 )
 
@@ -74,18 +92,19 @@ app.use(passport.session())
 app.use( (request, response, next) => {
   const { user } = request || null
   // console.log('request user >>>', request.user)
-  // response.locals.user = request.user || null;
+  response.locals.user = request.user || null;
   console.log('request user >>>', user)
-  response.locals.user = user;
   next()
 })
 
 //static folder
 app.use(express.static(path.join(__dirname, 'src')))
 
+//change auth route to a complete word
 //routes
 app.use('/', routes)
 app.use('/auth', authenticateRoutes)
+app.use('/posts', postsRoutes)
 
 const PORT = process.env.PORT || 8800
 
