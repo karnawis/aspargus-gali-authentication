@@ -1,1 +1,35 @@
-<h1>Edit Page</h1>
+<h3>Edit post</h3>
+<div class="row">
+    <form action="/posts/{{post._id}}" method="POST" class="col-md-12">
+    <!--used method override to override behaviour of the form
+    If actions used as /posts/  doesn't work unless Id inclded-->
+        <div class="form-group">
+            <input type="hidden" name="_method" value="PUT">
+
+            <div class="form-control">
+                <input type="text" id="title" value="{{post.title}}" />
+                <label for="title">Title</label>
+            </div>
+
+            <div class="form-control">
+                <select name="status" id="status">
+                    {{#select post.status}}
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    {{/select}}
+                </select>
+                <label for="status">Status</label>
+            </div>
+
+            <div class="form-control">
+                <h4>You post</h4>
+                <textarea id="textarea" name="textarea" cols="30" rows="10">{{post.textarea}}</textarea>
+            </div>
+
+
+            <input type="submit" value="Save" class="btn" />
+            <a href="/dashboard" class="btn btn-primary">Cancel</a>
+            <button class="btn btn-primary" type="submit">Submit form</button>
+        </div>
+    </form>
+</div>

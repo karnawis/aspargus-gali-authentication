@@ -7,12 +7,14 @@
             logged in user accessing it by going up, post id 
             Initially doesn't know loggedIn user unless it is global variable:  extracted from response and set as local-->
             <div class="card-body">
-                <h5 class="card-title">{{title}}</h5>
-                 <p>{{stripTags (truncate textarea 150)}}</p>
-                <span>{{createdAt}}</span>
+                <h5 class="card-title">{{upperCaseHelper title}}</h5>
+                 <p>TEXT area should not contain html tags {{stripTags ( truncate textarea 40 ) }}</p>
+                 <p>{{{ textarea }}}</p>
+                <span>Created at {{createdAt}}</span>
                 <p class="card-text"></p>
                 <a href="/posts/user/{{user._id}}" class="btn-primary">{{user.displayName}}</a>
                 <p><a href="/posts/{{_id}}" class="btn grey">Read More</a></p>
+                <p><img src="{{user.image}}" alt="image of the user"></p>
             </div>
         </div>
     {{else}}

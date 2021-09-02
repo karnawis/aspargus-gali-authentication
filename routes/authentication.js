@@ -26,8 +26,17 @@ router.get(
 
 //Logout = /auth/logout
 router.get('/logout', (request, response) => {
+    try {
     request.logout()
-    response.redirect('/')
+    //response.redirect('/')
+    response.clearCookie('connect.sid');
+    request.session.destroy(function (err) {
+        response.redirect('/dashboard'); //Inside a callback… bulletproof!
+      });
+    } catch(err) {
+        console.error(err)
+    }
+   
 })
 
 module.exports = router

@@ -14,6 +14,8 @@ const routes = require('./routes/index')
 const authenticateRoutes = require('./routes/authentication')
 const postsRoutes = require('./routes/posts')
 
+//const { request } = require('express')
+
 // Load config
 dotenv.config({ path: './config/config.env' })
 
@@ -54,8 +56,9 @@ const {
   truncate,
   edit,
   select,
+  upperCaseHelper, 
 } = require('./parsers/handlebars-helpers')
-const { request } = require('express')
+
 //templating
 app.engine(
   '.hbs', 
@@ -68,6 +71,7 @@ app.engine(
       truncate,
       edit,
       select,
+      upperCaseHelper, 
     }
   })
 )

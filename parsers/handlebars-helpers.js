@@ -1,5 +1,6 @@
 const moment = require('moment')
 
+
 const formatDate = (date, format) => {
   return moment(date).utc().format(format)
 }
@@ -20,16 +21,21 @@ const stripTags = (input) => {
 }
 
 //This function takes number of things: 
-//it loops through post users, which user is logged in, which story, floating button for location stylizing 
+//it loops through post users, which user is logged in, which post, floating button for location stylizing 
 const edit =  (postUser, loggedUser, postId, floating = true) => {
   if (postUser._id.toString() == loggedUser._id.toString()) {
     return (floating) 
-      ? `<a href="/posts/edit/${postId}" class="btn-floating halfway-fab blue"><i class="fas fa-edit fa-small"></i></a>` 
-      : `<a href="/posts/edit/${postId}"><i class="fas fa-edit"></i></a>`
+      ? `<a href="/posts/edit/${postId}" class="btn-floating halfway-fab blue"><i class="fas fa-edit fa-small"></i>Edit</a>` 
+      : `<a href="/posts/edit/${postId}"><i class="fas fa-edit"></i>Edit</a>`
   } else {
-    return ''
+    return 'nothings'
   }
 }
+
+const edits = () => {
+  return `<a href="/posts/edit/" class="btn-floating halfway-fab blue"><i class="fas fa-edit fa-small"></i>Edit</a>` 
+}
+
 
 
 const select = (selected, options) => {
@@ -45,6 +51,8 @@ const select = (selected, options) => {
     )
 }
 
-module.exports = { formatDate, truncate, stripTags, edit, select}
+const upperCaseHelper = (input) => {
+  return input.toUpperCase() 
+}
 
-
+module.exports = { formatDate, truncate, stripTags, edit, select, upperCaseHelper }
