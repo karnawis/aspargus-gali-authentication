@@ -9,10 +9,7 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const connectDB = require('./config/database')
-
 const routes = require('./routes/index')
-const authenticateRoutes = require('./routes/authentication')
-const postsRoutes = require('./routes/posts')
 
 //const { request } = require('express')
 
@@ -107,8 +104,6 @@ app.use(express.static(path.join(__dirname, 'src')))
 //change auth route to a complete word
 //routes
 app.use('/', routes)
-app.use('/auth', authenticateRoutes)
-app.use('/posts', postsRoutes)
 
 const PORT = process.env.PORT || 8800
 

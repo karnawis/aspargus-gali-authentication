@@ -1,41 +1,45 @@
-<h1>Dashboard</h1>
-<h2>Hello {{ name }}</h2>
+<h1>Hello {{ name }}, this is your dashboard</h1>
 {{#if posts }}
-    <div class="row">
-        <div class="col-xs-4">
-            <h3>Title</h3>
-        </div>
-         <div class="col-xs-4">
-            <h3>Date</h3>
-        </div>
-         <div class="col-xs-4">
-            <h3>Status</h3>
-        </div>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Title
+                </th>
+                 <th scope="col">
+                    Date
+                </th>
+                 <th scope="col">
+                    Status
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each posts}}
+            <tr>
+                <td>
+                     <a href="/posts/{{_id}}">{{title}}</a>
+                </td>
+                <td>
+                     {{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}
+                </td>
+                <td>
+                     <span>{{status}}</span>
+                </td>
+                <td>
+                    <a href="/posts/edit/{{_id}}" class="btn"><i class="fas fa-edit"></i> Edit</a>
+                </td>
+                <td>
+                    <form action="/posts/{{_id}}" method="POST" id="delete-form">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn"><i class="fas fa-trash"></i> Delete </button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{ else }}
+        <p>You have no posts</p>            
+    {{/if}}
 
-    {{#each posts}}
-        <div class="row">
-            <div class="col-xs-4">
-                <a href="/posts/{{_id}}">{{title}}</a>
-            </div>
-            <div class="col-xs-4">
-                {{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}
-            </div>
-            <div class="col-xs-4">
-                <span>{{status}}</span>
-            </div>
-            <div class="col-xs-4">
-                <a href="/posts/edit/{{_id}}"><i class="fas fa-edit"></i></a>
-            </div>
-            <div class="col-xs-4">
-                <form action="/posts/{{_id}}" method="POST" id="delete-form">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-trash"></i></button>
-                </form>
-            </div>
-        </div>
-    {{/each}}
-
-{{ else }}
-<p>You have no posts</p>
-{{/if}}

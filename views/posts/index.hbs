@@ -3,18 +3,24 @@
     {{#each posts}}
         <div class="card">
             <!--img class="card-img-top" src="..." alt="Card image cap"-->
-            {{{ edit user ../user _id }}} <!--refrencing post user, 
-            logged in user accessing it by going up, post id 
-            Initially doesn't know loggedIn user unless it is global variable:  extracted from response and set as local-->
             <div class="card-body">
-                <h5 class="card-title">{{upperCaseHelper title}}</h5>
-                 <p>TEXT area should not contain html tags {{stripTags ( truncate textarea 40 ) }}</p>
-                 <p>{{{ textarea }}}</p>
-                <span>Created at {{createdAt}}</span>
-                <p class="card-text"></p>
-                <a href="/posts/user/{{user._id}}" class="btn-primary">{{user.displayName}}</a>
-                <p><a href="/posts/{{_id}}" class="btn grey">Read More</a></p>
-                <p><img src="{{user.image}}" alt="image of the user"></p>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="card-title">{{upperCaseHelper title}}</h5>
+                        <p class="card-text">TEXT area should not contain html tags {{stripTags ( truncate textarea 40 ) }}</p>
+                        <p>{{{ textarea }}}</p>
+                        <div>
+                            <a href="/posts/{{_id}}" class="btn"><i class="fas fa-book"></i> Read More</a> 
+                            {{{ edit user ../user _id }}} <!--refrencing post user, 
+                            logged in user accessing it by going up, post id 
+                            Initially doesn't know loggedIn user unless it is global variable:  extracted from response and set as local-->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p><a href="/posts/user/{{user._id}}"><img class="img-circle" src="{{user.image}}" alt="image of the user"> <br>{{user.displayName}}</a></p>
+                        <p>Created at {{createdAt}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     {{else}}

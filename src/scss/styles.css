@@ -1,0 +1,69 @@
+
+/* Theme: posts theme
+    Author: Sura Karnawi
+    primary purple #121D59
+    secondary purple #32378C 
+    color red #A64E2E
+    color mustard #BF8136
+*/
+
+a {
+    color: #121D59
+}
+
+a:hover,
+a:visited,
+a:active {
+    color: #32378C ;
+}
+
+.brn,
+a.btn,
+.btn a {
+    background-color: #A64E2E;
+    color: #FFF
+}
+
+.fa, .fas {
+    color: #BF8136;
+    padding-right: 10px;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.text-small {
+    font-size: 11px;
+}
+
+nav {
+    background-color: #121D59;
+    min-height: 100px;
+}
+
+nav a,
+nav a:hover,
+nav a:visited,
+nav a:active {
+    color: #FFF;
+}
+
+
+.brand {
+    font-size: 40px;
+}
+
+.card {
+    margin-bottom: 50px;
+}
+
+footer {
+    background-color: #32378C;
+    color: #FFF;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+}

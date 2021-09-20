@@ -1,7 +1,7 @@
 <h2>Hello this is display post page</h2>
-<div class="row">
+
     <div class="col-md-12">
-        test{{{edit post.user user post._id false}}}
+        {{{edit post.user user post._id false}}}
         <h3>{{post.title}}</h3>
         <p>
             {{{post.textarea}}}
@@ -12,9 +12,8 @@
         <p>
             {{post.user.username}}
         </p>
-        <img src="{{post.user.image}}" class="circle responsive-img img-small">
+        <img src="{{post.user.image}}" class="img-circle responsive-img img-small img-rounded">
         <div class="card-action">
             <a href="/posts/user/{{post.user._id}}">More From {{post.user.firstName}}</a>
         </div>
     </div>
-</div>

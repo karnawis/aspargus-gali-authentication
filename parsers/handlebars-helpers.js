@@ -25,15 +25,16 @@ const stripTags = (input) => {
 const edit =  (postUser, loggedUser, postId, floating = true) => {
   if (postUser._id.toString() == loggedUser._id.toString()) {
     return (floating) 
-      ? `<a href="/posts/edit/${postId}" class="btn-floating halfway-fab blue"><i class="fas fa-edit fa-small"></i>Edit</a>` 
+      ? `<a href="/posts/edit/${postId}" class="btn"><i class="fas fa-edit fa-small"></i>Edit</a>` 
       : `<a href="/posts/edit/${postId}"><i class="fas fa-edit"></i>Edit</a>`
   } else {
-    return 'nothings'
+    return '<span class="text-small">not the logged in user</span>'
   }
 }
 
+//further improvement to improve above helper, there's no need for floating
 const edits = () => {
-  return `<a href="/posts/edit/" class="btn-floating halfway-fab blue"><i class="fas fa-edit fa-small"></i>Edit</a>` 
+  return `<p class="btn"><a href="/posts/edit/"><i class="fas fa-edit fa-small"></i>Edit</a></p>` 
 }
 
 

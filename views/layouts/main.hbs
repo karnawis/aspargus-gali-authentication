@@ -11,18 +11,22 @@
     <title>Hello World</title>
 </head>
 <body>
-    {{> _headers}}
-    <div class="container p-5">
-        {{> _add_button}}
-    </div>
-    <div class="container login-container">
-        <div class="card">
-            <div class="card-content">
-                Hello World Main Layout
-                {{{ body }}}
-            </div>
+    <div class="container">
+        <div class="row py-5">
+            {{> _headers}}
+        </div>
+        <div class="row py-4">
+            {{> _add_button}}
+        </div>
+        <div class="row py-2">
+            {{{ body }}}
         </div>
     </div>
+    <footer>
+        <div class="container">
+            <p>Copyright &copy; 2021 Sura Karnawi</p>
+        </div>
+    </footer>
    <!-- Latest compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

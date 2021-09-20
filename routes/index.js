@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const  { ensureAuthenticated: performedAuthentication, ensureNotAuthenticated: notPerformedAuthentication, ensureAuth } = require('../middelwares/authentications')
-
 const Post = require('../models/Post')
+const postRoutes = require('./posts')
+const authenticateRoutes = require('./authentication')
 
 const renderIndex = (request, response, next) => {
     response.render('index', {layout: 'main'})
@@ -41,5 +42,13 @@ router.get('/login',
 router.get('/dashboard', performedAuthentication, 
         renderDashboard,
 )
+
+router.use('/auth', authenticateRoutes)
+
+//access to all post pages needs authentication
+router.use('/posts',
+        performedAuthentication,
+        postRoutes
+        )
 
 module.exports = router

@@ -1,22 +1,20 @@
 const { response, request } = require('express')
 const express = require('express')
 const router = express.Router()
-const  { ensureAuthenticated: performedAuthentication, ensureNotAuthenticated: notPerformedAuthentication, ensureAuth } = require('../middelwares/authentications')
 const Post = require('../models/Post')
 const User = require('../models/User')
 
-// I can try to move ensure authentication to be passed as middleware to all /posts
-// Look at posts route see how almost all routes use middleware   performedAuthentication, see if you can add it to specific routes let's say route: posts/auth/edit so all posts/auth would use authenticated middleware
-// Show add post page
-// Route GET posts/add
-// I can move find posts and/or checking user (loggedin/post creator) in its own middleware
-router.get('/add', performedAuthentication, ( request, response ) => {
-    response.render('posts/add')
-})
+// Description    Show add page
+// Route   GET /posts/add
+router.get('/add', 
+    ( request, response ) => {
+        response.render('posts/add')
+    })
 
 // proccess add form
 // route POST /posts
-router.post('/', performedAuthentication, async (request, response) => {
+router.post('/', 
+    async (request, response) => {
     try {
         //request.body will have the body that will be sent by form
         //it needs to be parsed. 
@@ -34,7 +32,6 @@ router.post('/', performedAuthentication, async (request, response) => {
 // route GET posts - fetch posts and render them 
 router.get(
     '/', 
-    performedAuthentication, 
     async ( request, response ) => {
         try {
 
@@ -58,22 +55,8 @@ router.get(
 
 // @desc    Show single post
 // @route   GET /posts/:id
-          // const post = await Post.findOne({
-            //     _id: request.params.id
-            // }).lean()
-
-            // if(!post) return response.render('error/404')
-
-            // if(post.user._id != request.user.id && post.status == 'private') {
-            //     response.render('error/404')
-            // } else {
-            //     response.render('posts/display', {
-            //         post
-            //     })
-            // }
 router.get(
     '/:id',
-    performedAuthentication,
     async (request, response) => {
         try {
             let post = await Post.findById(request.params.id).populate('user').lean()
@@ -100,7 +83,6 @@ router.get(
 // Route GET /posts/edit/:id
 router.get(
     '/edit/:id', 
-    performedAuthentication,
     async (request, response) => {
         try {
             const post = await Post.findOne({
@@ -126,7 +108,6 @@ router.get(
 // Route PUT /posts/:id
 router.put(
     '/:id', 
-    performedAuthentication,
     async (request, response) => {
         try {
             let post = await Post.findById(request.params.id).lean()
@@ -157,7 +138,6 @@ router.put(
 
 router.delete(
     '/:id', 
-    performedAuthentication,
     async (request, response) => {
         try {
             //let post = await Post.findById(request.params.id).lean()
@@ -175,7 +155,6 @@ router.delete(
 
 router.get(
     '/user/:userId',
-    performedAuthentication,
     async (request, response) => {
         try {
             const posts = await Post.find({
